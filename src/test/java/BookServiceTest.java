@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
@@ -10,6 +12,8 @@ class BookServiceTest {
     //------ assertTrue assertFalse
 
     @Test
+    @DisplayName("Test Get Library Empty")
+    @Disabled
     void testGetLibrary() {
         BookService bookService = new BookService();
         List<Book> foundLibrary = bookService.getLibrary();

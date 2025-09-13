@@ -1,6 +1,18 @@
-public class Calculator {
+import java.util.ArrayList;
+import java.util.List;
 
-    public int addition(int num1, int num2) {
-        return num1 + num2;
+public class Calculator {
+    public List<Integer> resultsHistory = new ArrayList<>();
+
+    public Integer addition(Integer num1, Integer num2) {
+        Integer result = num1 + num2;
+        resultsHistory.add(result);
+        return result;
+    }
+
+    public Integer multiplication(Integer num1, Integer num2) {
+        Integer result = num1 * num2;
+        resultsHistory.add(result);
+        return result;
     }
 }
