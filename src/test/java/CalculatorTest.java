@@ -2,6 +2,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.DisplayName.class)
 class CalculatorTest {
     static Calculator calculator;
     Integer num1;
@@ -21,6 +22,7 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("Bawdaw")
     void additionTest() {
         int result = calculator.addition(num1, num2);
         num1 = num1 - 2;
@@ -28,6 +30,7 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("Aawdaw")
     void multiplicationTest() {
         int result = calculator.multiplication(num1, num2);
         assertEquals(15, result);
