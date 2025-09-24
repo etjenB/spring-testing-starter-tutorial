@@ -23,4 +23,19 @@ public class Calculator {
         resultsHistory.add(result);
         return result;
     }
+
+    public Integer performCalculation(Integer num1, Integer num2, Calculation calculation) {
+        switch (calculation) {
+            case ADDITION -> { return this.addition(num1, num2); }
+            case MULTIPLICATION -> { return this.multiplication(num1, num2); }
+            case DIVISION -> { return this.division(num1, num2); }
+            case null, default -> throw new ArithmeticException("No calculation was provided.");
+        }
+    }
+
+    public Integer square(Integer num) {
+        Integer result = num * num;
+        resultsHistory.add(result);
+        return result;
+    }
 }

@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,11 +19,64 @@ class CalculatorTest {
         num2 = 3;
     }
 
-    @RepeatedTest(3)
+    @Test
     void additionTest() {
         int result = calculator.addition(num1, num2);
         assertEquals(8, result);
         assertEquals(List.of(8), calculator.resultsHistory);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {5, 20, 50, 333, 5676})
+    void additionTestVariousCases(Integer num) {
+        int result = calculator.addition(num, num2);
+        assertEquals(num + num2, result);
+        assertEquals(List.of(result), calculator.resultsHistory);
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = Calculation.class, names = { "ADDITION", "MULTIPLICATION", "DIVISION" })
+    void simpleTest(Calculation calculation) {
+        int result = calculator.performCalculation(num1, num2, calculation);
+        switch (calculation) {
+            case ADDITION -> assertEquals(num1 + num2, result);
+            case MULTIPLICATION -> assertEquals(num1 * num2, result);
+            case DIVISION -> assertEquals(num1 / num2, result);
+        }
+        assertEquals(List.of(result), calculator.resultsHistory);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1, 1",
+            "2, 4",
+            "3, 9"
+    })
+    void squareTest(Integer num, Integer square) {
+        int result = calculator.square(num);
+        assertEquals(square, result);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/square_test.csv")
+    void squareTestFromFile(Integer num, Integer square) {
+        int result = calculator.square(num);
+        assertEquals(square, result);
+    }
+
+    @ParameterizedTest
+    @MethodSource("squareTestArguemntsProvider")
+    void squareTestMethodSource(Integer num, Integer square) {
+        int result = calculator.square(num);
+        assertEquals(square, result);
+    }
+
+    static Stream<Arguments> squareTestArguemntsProvider() {
+        return Stream.of(
+            Arguments.arguments(1, 1),
+            Arguments.arguments(5, 25),
+            Arguments.arguments(10, 100)
+        );
     }
 
     @Test
