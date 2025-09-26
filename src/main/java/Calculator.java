@@ -7,10 +7,7 @@ public class Calculator {
     public Integer addition(Integer num1, Integer num2) {
         Integer result = num1 + num2;
         resultsHistory.add(result);
-        int counter = 0;
-        while(true){
-            System.out.println(counter++);
-        }
+        return result;
     }
 
     public Integer multiplication(Integer num1, Integer num2) {

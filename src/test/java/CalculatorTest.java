@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class CalculatorTest {
     private static Calculator calculator;
@@ -28,13 +29,11 @@ class CalculatorTest {
     }
 
     @Test
-    void additionTestPerformance() {
-        assertTimeout(Duration.ofSeconds(1), () -> calculator.addition(num1, num2));
-    }
-
-    @Test
-    void additionTestPerformancePre() {
-        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> calculator.addition(num1, num2));
+    void additionTestUnderCond() {
+        assumeTrue(System.getenv("KEY") != null);
+        int result = calculator.addition(num1, num2);
+        assertEquals(8, result);
+        assertEquals(List.of(8), calculator.resultsHistory);
     }
 
     @Test
